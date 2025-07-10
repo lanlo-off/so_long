@@ -17,14 +17,10 @@ CC = cc
 
 CFLAGS = -Wall -Wextra -Werror -g3
 
-ARGS = infile.txt "cat -e" "wc -l" outfile.txt
-ARGS2 = infile.txt "cat -e" "cat -e" outfile.txt
-ARGS_ERROR = infile.txt "cat -e" "greknvjk" outfile.txt
-
 all: $(NAME)
 
 $(NAME): libs $(OBJS) 
-	$(CC) $(CFLAGS) $(OBJS) -L./libft -lft -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJS) -L./libft -lft -o $(NAME) $(MLX_FLAGS)
 
 %.o: %.c $(HEADER)
 	$(CC) -I./libft $(CFLAGS) -c $< -o $@ $(INCLUDES)

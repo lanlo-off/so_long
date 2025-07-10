@@ -6,7 +6,7 @@
 /*   By: llechert <llechert@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 17:17:20 by llechert          #+#    #+#             */
-/*   Updated: 2025/07/03 16:06:24 by llechert         ###   ########.fr       */
+/*   Updated: 2025/07/10 14:56:54 by llechert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,8 @@ int		ft_lstsize(t_list *lst);
 /*Others*/
 void	free_tab_str(char **tab);
 int		ft_strcmp(char *s1, char *s2);
+int		ft_isspace(char c);
+char	*ft_strndup(const char *src, int n);
 
 /*GNL*/
 # ifndef BUFFER_SIZE

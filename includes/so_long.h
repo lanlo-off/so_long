@@ -6,7 +6,7 @@
 /*   By: llechert <llechert@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 09:40:01 by llechert          #+#    #+#             */
-/*   Updated: 2025/07/10 11:58:20 by llechert         ###   ########.fr       */
+/*   Updated: 2025/07/10 15:35:56 by llechert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,20 @@ typedef struct s_data
 	void	*win_ptr;
 }	t_data;
 
-typedef struct s_map
+typedef struct s_game
 {
 	char	*name;
-	char	**dup;
+	char	**map;
+	// char	**dup2;
 	int		h_size;
 	int		v_size;
+	int		player;
+	int		start_i;
+	int		start_j;
+	int		exit;
+	int		exit_i;
+	int		exit_j;
 	int		collec;
-}	t_map;
+}	t_game;
 
 #endif

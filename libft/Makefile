@@ -54,7 +54,9 @@ SRCS_A += gnl/get_next_line.c\
 
 # Other functions
 SRCS_A += other/free_tab_str.c\
-	other/ft_strcmp.c
+	other/ft_strcmp.c\
+	other/ft_isspace.c\
+	other/ft_strndup.c
 
 SRC_DIR	= .
 
