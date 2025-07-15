@@ -1,36 +1,53 @@
 SRCS = src/main.c\
-	src/
+	src/empty.c\
+	src/exit.c\
+	src/game.c\
+	src/graphics.c\
+	src/parser_utils.c\
+	src/parser.c\
+	src/path_finding.c
 
-OBJS := $(SRCS:.c=.o)
+OBJS_DIR = obj
+
+OBJS = $(SRCS:src/%.c=$(OBJS_DIR)/%.o)
 
 NAME = so_long
 
-INCLUDES = -I/usr/include -Imlx
+INCLUDES = -I./libft -I/usr/include -Imlx
 
 MLX_FLAGS = -Lmlx -lmlx -L/usr/lib/X11 -lXext -lX11
 
-HEADER = includes/so_long.h
+MLX = mlx/libmlx.a
 
-OBJS_BONUS := $(SRCS_BONUS:.c=.o)
+HEADER = includes/so_long.h
 
 CC = cc
 
 CFLAGS = -Wall -Wextra -Werror -g3
 
+LIBFT = libft/libft.a
+
 all: $(NAME)
 
-$(NAME): libs $(OBJS) 
-	$(CC) $(CFLAGS) $(OBJS) -L./libft -lft -o $(NAME) $(MLX_FLAGS)
+$(OBJS_DIR):
+	mkdir -p $(OBJS_DIR)
 
-%.o: %.c $(HEADER)
-	$(CC) -I./libft $(CFLAGS) -c $< -o $@ $(INCLUDES)
+$(NAME): $(LIBFT) $(OBJS) $(MLX)
+	$(CC) $(CFLAGS) $(OBJS) $(MLX_FLAGS) -L./libft -lft -o $(NAME)
 
-libs:
+$(OBJS_DIR)/%.o: src/%.c $(HEADER) | $(OBJS_DIR)
+	$(CC) $(INCLUDES) $(CFLAGS) -c $< -o $@ 
+
+$(LIBFT):
 	make -C libft
+
+$(MLX):
+	make -C mlx
 
 clean:
 	@make clean -C libft
-	rm -f $(OBJS)
+	@make clean -C mlx
+	rm -rf $(OBJS_DIR)
 
 fclean: clean
 	@make fclean -C libft

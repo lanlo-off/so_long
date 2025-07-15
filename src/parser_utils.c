@@ -6,7 +6,7 @@
 /*   By: llechert <llechert@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 14:20:06 by llechert          #+#    #+#             */
-/*   Updated: 2025/07/15 10:15:49 by llechert         ###   ########.fr       */
+/*   Updated: 2025/07/15 17:04:20 by llechert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,19 +33,19 @@ int	check_outlines(t_map *map)
 	if (i != map->h_size)
 		return (1);
 	i = 0;
-	while (map->map[map->v_size - 1][i] && map->map[map->v_size - 1][i] == 1)//last line
+	while (map->map[map->v_size - 1][i] && map->map[map->v_size - 1][i] == '1')//last line
 		i++;
 	if (i != map->h_size)
 		return (1);
 	i = 0;
-	while ((map->map[i][0] && map->map[i][0] == '1'))//first column
+	while ((map->map[i] && map->map[i][0] == '1'))//first column
 		i++;
-	if (i != map->h_size)
+	if (i != map->v_size)
 		return (1);
 	i = 0;
-	while (map->map[i][map->h_size - 1] && map->map[i][map->h_size - 1] == 1)//last column
+	while (map->map[i] && map->map[i][map->h_size - 1] == '1')//last column
 		i++;
-	if (i != map->h_size)
+	if (i != map->v_size)
 		return (1);
 	return (0);
 }
@@ -58,10 +58,10 @@ int	count_spe_tiles(t_map *map)
 
 	i = 0;
 	exit = 0;
-	while (map->map[i])
+	while (i < map->v_size)
 	{
 		j = 0;
-		while (map->map[i][j])
+		while (j < map->h_size)
 		{
 			if (invalid_char(map, map->map[i][j], i, j))
 				return (ft_putstr_fd("Error\nInvalid character in map!", 2), 1);
@@ -71,7 +71,7 @@ int	count_spe_tiles(t_map *map)
 	}
 	if (map->exit != 1)
 		return (ft_putstr_fd("Error\nWrong exit !", 2), 1);
-	if (!map->player != 1)
+	if (map->player != 1)
 		return (ft_putstr_fd("Error\nWrong starting position !", 2), 1);
 	if (map->collec < 1)
 		return (ft_putstr_fd("Error\nNot enough collectibles !", 2), 1);

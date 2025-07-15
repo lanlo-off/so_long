@@ -6,7 +6,7 @@
 /*   By: llechert <llechert@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 15:46:51 by llechert          #+#    #+#             */
-/*   Updated: 2025/07/15 10:12:10 by llechert         ###   ########.fr       */
+/*   Updated: 2025/07/15 15:20:00 by llechert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	flood_fill(t_map *map, int i, int j)
 {
-	if (i < 0 || i >= map->v_size || j < 0 || j > map->h_size)
+	if (i < 0 || i >= map->v_size || j < 0 || j >= map->h_size)
 		return ;
-	if (!process_target(map->map[i][j]))
+	if (!process_target(&map->map[i][j]))
 		return ;
 	flood_fill(map, i - 1, j);
 	flood_fill(map, i + 1, j);
@@ -24,11 +24,16 @@ void	flood_fill(t_map *map, int i, int j)
 	flood_fill(map, i, j + 1);
 }
 
-int	process_target(char c)
+int	process_target(char *c)
 {
-	if (c == '0' || c == "C" || c == 'E' || c == 'P')//0 devient F et les autres deviennent leur minuscule
+	if (*c == 'C' || *c == 'E' || *c == 'P')//0 devient F et les autres deviennent leur minuscule
 	{
-		c += 32;
+		*c += 32;
+		return (1);
+	}
+	else if (*c == '0')
+	{
+		*c = 'a';
 		return (1);
 	}
 	return (0);
@@ -38,7 +43,7 @@ void	reverse_flood(t_map *map, int i, int j)
 {
 	if (i < 0 || i >= map->v_size || j < 0 || j > map->h_size)
 		return ;
-	if (!rev_process_target(map->map[i][j]))
+	if (!rev_process_target(&map->map[i][j]))
 		return ;
 	reverse_flood(map, i - 1, j);
 	reverse_flood(map, i + 1, j);
@@ -46,11 +51,16 @@ void	reverse_flood(t_map *map, int i, int j)
 	reverse_flood(map, i, j + 1);
 }
 
-int	rev_process_target(char c)
+int	rev_process_target(char *c)
 {
-	if (c == 'F' || c == "c" || c == 'e' || c == 'p')//F devient 0 et les autres deviennent leur majuscule
+	if (*c == 'c' || *c == 'e' || *c == 'p')
 	{
-		c -= 32;
+		*c -= 32;
+		return (1);
+	}
+	else if (*c == 'a')
+	{
+		*c = '0';
 		return (1);
 	}
 	return (0);

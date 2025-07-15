@@ -6,7 +6,7 @@
 /*   By: llechert <llechert@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 10:40:35 by llechert          #+#    #+#             */
-/*   Updated: 2025/07/15 10:12:02 by llechert         ###   ########.fr       */
+/*   Updated: 2025/07/15 15:26:11 by llechert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ int	parse_map(t_map *map)
 		return (ft_putstr_fd("Error\nCould not dup map !", 2), 1);
 	if (check_map_characteristics(map))//messages d'erreur inclus
 		return (1);
+	return (0);
 }
 
 int	check_size(t_map *map, int fd)
@@ -72,20 +73,22 @@ int	check_size(t_map *map, int fd)
 	char	*line;
 	
 	line = get_next_line(fd);
-	while (line[0] != '\n')
+	while (line && line[0] == '\n')
 		line = get_next_line(fd);
-	line = get_next_line(fd);
 	if (!line)
 		return (ft_putstr_fd("Error\nEmpty map !", 2), 1);
-	map->h_size = ft_strlen(line) - 1;//-1 car pas le \n
+	map->h_size = ft_strlen(line) - 1;
 	map->v_size = 1;
+	line = get_next_line(fd);//on passe a la deuxieme ligne de la map
 	while (line && line[0] != '\n')
 	{
 		map->v_size++;
-		if (map->h_size != ft_strlen(line))//pb ici car on a peut-etre le \n dans notre line (mais peut-etre pas)
+		if (map->h_size != (int)ft_strlen(line) - (line[ft_strlen(line) - 1] == '\n'))//exclut le \n a la fin du calcul
 			return (ft_putstr_fd("Error\nAll rows are not of the same size", 2), 1);
 		line = get_next_line(fd);
 	}
+	if (map->v_size < 3 || map->h_size < 3)
+		return (ft_putstr_fd("Error\nNot enough rows or columns", 2), 1);
 	return (0);
 }
 
@@ -99,15 +102,15 @@ int	duplicate_map(t_map *map, int fd)
 	if (!map->map)
 		return (1);
 	line = get_next_line(fd);
-	while (line[0] != '\n')
+	while (line && line[0] == '\n')
 		line = get_next_line(fd);
-	line = get_next_line(fd);
-	while (line && line[0] != '\n')//remplacer par i < v_size ?
+	while (i < map->v_size)//remplacer par i < v_size ?
 	{
 		map->map[i] = ft_strdup(line);//attention en faisant ca on prend le \n a la fin de la ligne --> on ne fait pas un strndup car sur la derniere ligne de la map il peut ne pas y avoir de \n
 		if (!map->map[i])
 			return (free_tab_str(map->map), 1);
 		i++;
+		line = get_next_line(fd);
 	}
 	map->map[i] = NULL;
 	return (0);
