@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llechert <llechert@42.fr>                  +#+  +:+       +#+        */
+/*   By: llechert <llechert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 09:40:01 by llechert          #+#    #+#             */
-/*   Updated: 2025/07/10 15:35:56 by llechert         ###   ########.fr       */
+/*   Updated: 2025/07/11 14:52:34 by llechert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,14 @@ typedef struct s_data
 {
 	void	*mlx_ptr;
 	void	*win_ptr;
+	t_game	*game;
+	t_img	img;
 }	t_data;
 
 typedef struct s_game
 {
 	char	*name;
 	char	**map;
-	// char	**dup2;
 	int		h_size;
 	int		v_size;
 	int		player;
@@ -39,5 +40,13 @@ typedef struct s_game
 	int		exit_j;
 	int		collec;
 }	t_game;
+
+typedef struct s_img {
+	void	*wall;
+	void	*floor;
+	void	*player;
+	void	*collectible;
+	void	*exit;
+}   t_img;
 
 #endif

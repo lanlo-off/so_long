@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llechert <llechert@42.fr>                  +#+  +:+       +#+        */
+/*   By: llechert <llechert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 10:40:35 by llechert          #+#    #+#             */
-/*   Updated: 2025/07/10 17:49:48 by llechert         ###   ########.fr       */
+/*   Updated: 2025/07/11 13:36:12 by llechert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ int	duplicate_map(t_game *game, int fd)
 	line = get_next_line(fd);
 	while (line && line[0] != '\n')//remplacer par i < v_size ?
 	{
-		game->map[i] = ft_strndup(line, ft_strlen(line) - 1);
+		game->map[i] = ft_strdup(line);//attention en faisant ca on prend le \n a la fin de la ligne --> on ne fait pas un strndup car sur la derniere ligne de la map il peut ne pas y avoir de \n
 		if (!game->map[i])
 			return (free_tab_str(game->map), 1);
 		i++;
