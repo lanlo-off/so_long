@@ -6,7 +6,7 @@
 /*   By: llechert <llechert@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 09:40:01 by llechert          #+#    #+#             */
-/*   Updated: 2025/07/15 17:36:57 by llechert         ###   ########.fr       */
+/*   Updated: 2025/07/15 18:13:13 by llechert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ int		exit_game(t_data *data, int exit_code);
 void	start_game(t_data *data);
 void	move_player(t_data *data, int di, int dj);
 int		handle_keypress(int keycode, t_data *data);
+void	print_move(int moves);
 
 /*graphics.c*/
 void	render_map(t_data *data, t_map *map);

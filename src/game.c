@@ -6,7 +6,7 @@
 /*   By: llechert <llechert@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 13:21:28 by llechert          #+#    #+#             */
-/*   Updated: 2025/07/15 17:38:18 by llechert         ###   ########.fr       */
+/*   Updated: 2025/07/15 18:12:58 by llechert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,19 @@ void	move_player(t_data *data, int di, int dj)
 	if (tile == 'C')
 		data->collected++;
 	if (tile == 'E' && data->collected == data->map->collec)
+	{
+		print_move(++data->moves);
 		exit_game(data, 0);
+	}
 	data->map->map[data->player_i][data->player_j] = '0';//on remplace /remet la case actuelle par un 0
 	data->map->map[new_i][new_j] = 'P';//le player se deplace a l'endroit suivant
 	data->player_i = new_i;
 	data->player_j = new_j;
-	ft_printf("Moves: %d\n", ++data->moves);//on compte les moves
+	print_move(++data->moves);
 	render_map(data, data->map);//on reimprime
+}
+
+void	print_move(int moves)
+{
+	ft_printf("Moves: %d\n", moves);//on compte les moves
 }

@@ -6,7 +6,7 @@
 /*   By: llechert <llechert@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 09:36:45 by llechert          #+#    #+#             */
-/*   Updated: 2025/07/15 17:37:28 by llechert         ###   ########.fr       */
+/*   Updated: 2025/07/15 18:10:05 by llechert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,11 @@ int	init_structure(t_data *data, char **av)
 	if (!data->map)
 		return (0);
 	data->map->name = av[1];
+	data->tile_size = 64;//a ajuster avec les sprites
 	data->mlx_ptr = 0;
 	data->win_ptr = 0;
 	data->width = 0;
 	data->height = 0;
-	data->tile_size = 64;//a ajuster avec les sprites
 	data->collected = 0;
 	data->moves = 0;
 	return (1);
