@@ -6,22 +6,22 @@
 /*   By: llechert <llechert@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 15:46:51 by llechert          #+#    #+#             */
-/*   Updated: 2025/07/10 17:04:29 by llechert         ###   ########.fr       */
+/*   Updated: 2025/07/15 10:12:10 by llechert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
 
-void	flood_fill(t_game *game, int i, int j)
+void	flood_fill(t_map *map, int i, int j)
 {
-	if (i < 0 || i >= game->v_size || j < 0 || j > game->h_size)
+	if (i < 0 || i >= map->v_size || j < 0 || j > map->h_size)
 		return ;
-	if (!process_target(game->map[i][j]))
+	if (!process_target(map->map[i][j]))
 		return ;
-	flood_fill(game, i - 1, j);
-	flood_fill(game, i + 1, j);
-	flood_fill(game, i, j - 1);
-	flood_fill(game, i, j + 1);
+	flood_fill(map, i - 1, j);
+	flood_fill(map, i + 1, j);
+	flood_fill(map, i, j - 1);
+	flood_fill(map, i, j + 1);
 }
 
 int	process_target(char c)
@@ -34,16 +34,16 @@ int	process_target(char c)
 	return (0);
 }
 
-void	reverse_flood(t_game *game, int i, int j)
+void	reverse_flood(t_map *map, int i, int j)
 {
-	if (i < 0 || i >= game->v_size || j < 0 || j > game->h_size)
+	if (i < 0 || i >= map->v_size || j < 0 || j > map->h_size)
 		return ;
-	if (!rev_process_target(game->map[i][j]))
+	if (!rev_process_target(map->map[i][j]))
 		return ;
-	reverse_flood(game, i - 1, j);
-	reverse_flood(game, i + 1, j);
-	reverse_flood(game, i, j - 1);
-	reverse_flood(game, i, j + 1);
+	reverse_flood(map, i - 1, j);
+	reverse_flood(map, i + 1, j);
+	reverse_flood(map, i, j - 1);
+	reverse_flood(map, i, j + 1);
 }
 
 int	rev_process_target(char c)
