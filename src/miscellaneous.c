@@ -6,7 +6,7 @@
 /*   By: llechert <llechert@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 11:02:46 by llechert          #+#    #+#             */
-/*   Updated: 2025/07/16 12:43:53 by llechert         ###   ########.fr       */
+/*   Updated: 2025/07/16 17:03:21 by llechert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	end_nl(char *line)
 char	*skip_nl(int fd)
 {
 	char	*line;
-	
+
 	line = get_next_line(fd);
 	if (!line)
 		return (NULL);
@@ -37,14 +37,22 @@ char	*skip_nl(int fd)
 	return (line);
 }
 
-void	free_gnl_buffer(int fd)
+int	check_bottom(int fd)
 {
 	char	*line;
-	
+
 	line = get_next_line(fd);
-	while (line)
+	if (!line)
+		return (0);
+	while (line && line[0] == '\n')
 	{
 		free(line);
 		line = get_next_line(fd);
 	}
+	if (line && line[0])
+	{
+		free(line);
+		return (ft_putstr_fd("Error\nThere are things below your map! \n", 2), 1);
+	}
+	return (0);
 }

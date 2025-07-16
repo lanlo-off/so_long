@@ -6,7 +6,7 @@
 /*   By: llechert <llechert@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/14 16:12:25 by llechert          #+#    #+#             */
-/*   Updated: 2025/07/15 17:36:34 by llechert         ###   ########.fr       */
+/*   Updated: 2025/07/16 16:33:18 by llechert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	render_map(t_data *data, t_map *map)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
 	while (i < map->v_size)
@@ -25,14 +25,14 @@ void	render_map(t_data *data, t_map *map)
 		{
 			if (map->map[i][j] == '1')
 				print_img(data, data->img_wall, i, j);
-			else
+			else if (map->map[i][j] == '0')
 				print_img(data, data->img_floor, i, j);
+			if (i == data->map->exit_i && j == data->map->exit_j)
+				print_img(data, data->img_exit, i, j);
 			if (map->map[i][j] == 'P')
 				print_img(data, data->img_player, i, j);
 			else if (map->map[i][j] == 'C')
 				print_img(data, data->img_collectible, i, j);
-			else if (map->map[i][j] == 'E')
-				print_img(data, data->img_exit, i, j);
 			j++;
 		}
 		i++;
@@ -42,7 +42,7 @@ void	render_map(t_data *data, t_map *map)
 void	print_img(t_data *data, void *img, int i, int j)
 {
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, img,
-		data->tile_size * j, data->tile_size * i);//a adapter, les 2 derniers args sont l'offset
+		data->tile_size * j, data->tile_size * i);
 }
 
 int	init_images(t_data *data)

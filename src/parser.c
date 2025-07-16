@@ -6,7 +6,7 @@
 /*   By: llechert <llechert@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 10:40:35 by llechert          #+#    #+#             */
-/*   Updated: 2025/07/16 12:53:50 by llechert         ###   ########.fr       */
+/*   Updated: 2025/07/16 17:09:44 by llechert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	parser(t_map *map)
 		ft_putstr_fd("Error\nMap name is unsupported! \n", 2);
 		exit(1);
 	}
-	if (parse_map(map))//message d'erreur inclus dans le parser
+	if (parse_map(map))
 	{
 		free_tab_str(map->map);
 		free(map);
@@ -44,7 +44,7 @@ int	parse_name(char *name)
 	if (ft_strncmp(name + len - 4, ".ber", 5))
 		return (1);
 	if (name[len - 5] == '/')
-		return (1);//cas ou le fichier s'appelle juste .ber et se situe dans le dossier map : on passe map/.ber en arg et on veut pas l'accepter
+		return (1);
 	return (0);
 }
 
@@ -59,15 +59,19 @@ int	parse_map(t_map *map)
 	{
 		free_gnl_buffer(fd);
 		close(fd);
-		return (1);//messages d'erreurs dans check_size
+		return (1);
 	}
-	close(fd);//ou remplacer par un free total de gnl ?
+	close(fd);
 	fd = open(map->name, O_RDONLY);
 	if (fd < 0)
 		return (ft_putstr_fd("Error\nCould not open map! \n", 2), 1);
 	if (duplicate_map(map, fd))
+	{
+		free_gnl_buffer(fd);
+		close(fd);
 		return (ft_putstr_fd("Error\nCould not dup map! \n", 2), 1);
-	if (check_map_characteristics(map))//messages d'erreur inclus
+	}
+	if (check_map_characteristics(map))
 		return (1);
 	return (0);
 }
@@ -75,31 +79,29 @@ int	parse_map(t_map *map)
 int	check_size(t_map *map, int fd)
 {
 	char	*line;
-	
-	line = skip_nl(fd);//dedans on fait un gnl donc faut free plus bas
+
+	line = skip_nl(fd);
 	if (!line)
-		return (free(line), ft_putstr_fd("Error\nEmpty map! \n", 2), 1);//faut-il free si line est vide ou risque de invalid free ? --> test avec empty map
+		return (ft_putstr_fd("Error\nEmpty map! \n", 2), 1);
 	map->h_size = ft_strlen(line) - 1;
 	map->v_size = 1;
-	free(line);//free du skip_nl
-	line = get_next_line(fd);//on passe a la deuxieme ligne de la map
+	free(line);
+	line = get_next_line(fd);
 	while (line && line[0] != '\n')
 	{
 		map->v_size++;
-		if (map->h_size != (int)ft_strlen(line) - (line[ft_strlen(line) - 1] == '\n'))//exclut le \n a la fin du calcul
+		if (map->h_size != (int)ft_strlen(line) - end_nl(line))
 		{
-			free(line);//on free si error
-			// line = get_next_line(-42);
-			// free_gnl_buffer(fd);//on finit par vider le buffer de gnl
+			free(line);
 			return (ft_putstr_fd("Error\nMap is not rectangular! \n", 2), 1);
 		}
-		free(line);//on free avant de passer au suivant
+		free(line);
 		line = get_next_line(fd);
 	}
-	free(line);//on free la derniere ligne
+	free(line);
 	if (map->v_size < 3 || map->h_size < 3)
 		return (ft_putstr_fd("Error\nNot enough rows or columns! \n", 2), 1);
-	return (0);
+	return (check_bottom(fd));
 }
 
 int	duplicate_map(t_map *map, int fd)
@@ -112,17 +114,18 @@ int	duplicate_map(t_map *map, int fd)
 	if (!map->map)
 		return (1);
 	line = skip_nl(fd);
-	while (i < map->v_size)//remplacer par i < v_size ?
+	while (i < map->v_size)
 	{
 		map->map[i] = ft_strdup(line);
 		if (!map->map[i])
-			return (1);//on free dans parser juste apres etre revenu de parse_map --> est-ce necessaire de remettre le free_gnl_buffer ici ?
+			return (1);
 		i++;
 		free(line);
 		line = get_next_line(fd);
 	}
-	free(line);//free-gnl-buffer aussi ??
 	map->map[i] = NULL;
+	free(line);
+	free_gnl_buffer(fd);
 	close(fd);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: llechert <llechert@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 10:08:10 by llechert          #+#    #+#             */
-/*   Updated: 2025/07/15 14:48:41 by llechert         ###   ########.fr       */
+/*   Updated: 2025/07/16 16:57:19 by llechert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	print_map(t_map *map)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i <= map->v_size)

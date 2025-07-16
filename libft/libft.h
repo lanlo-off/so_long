@@ -6,7 +6,7 @@
 /*   By: llechert <llechert@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 17:17:20 by llechert          #+#    #+#             */
-/*   Updated: 2025/07/10 14:56:54 by llechert         ###   ########.fr       */
+/*   Updated: 2025/07/16 17:03:54 by llechert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,5 +85,6 @@ void	add_new_element(t_list	**list, char *buf);
 int		find_newline(t_list *list);
 int		ft_len_needed(t_list **list);
 void	prepare_list(t_list **list, char *rest);
+void	free_gnl_buffer(int fd);
 
 #endif

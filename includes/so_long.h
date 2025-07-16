@@ -6,7 +6,7 @@
 /*   By: llechert <llechert@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 09:40:01 by llechert          #+#    #+#             */
-/*   Updated: 2025/07/16 12:45:36 by llechert         ###   ########.fr       */
+/*   Updated: 2025/07/16 17:04:11 by llechert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void	fill_data(t_data *data);
 /*miscellaneous.c*/
 char	*skip_nl(int fd);
 int		end_nl(char *line);
-void	free_gnl_buffer(int fd);
+int		check_bottom(int fd);
 
 /*parser_utils.c*/
 int		check_map_characteristics(t_map *map);

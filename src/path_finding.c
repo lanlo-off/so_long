@@ -6,7 +6,7 @@
 /*   By: llechert <llechert@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 15:46:51 by llechert          #+#    #+#             */
-/*   Updated: 2025/07/15 15:20:00 by llechert         ###   ########.fr       */
+/*   Updated: 2025/07/16 16:31:46 by llechert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	flood_fill(t_map *map, int i, int j)
 
 int	process_target(char *c)
 {
-	if (*c == 'C' || *c == 'E' || *c == 'P')//0 devient F et les autres deviennent leur minuscule
+	if (*c == 'C' || *c == 'E' || *c == 'P')
 	{
 		*c += 32;
 		return (1);

@@ -6,7 +6,7 @@
 /*   By: llechert <llechert@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 09:36:45 by llechert          #+#    #+#             */
-/*   Updated: 2025/07/15 18:10:05 by llechert         ###   ########.fr       */
+/*   Updated: 2025/07/16 16:47:44 by llechert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ int	main(int ac, char **av)
 
 	if (ac != 2)
 		return (ft_putstr_fd("Wrong number of arguments\n", 2), 0);
-	if (!init_structure(&data, av))//verifier qu'on initialise bien tout
+	if (!init_structure(&data, av))
 		return (ft_putstr_fd("Could not initialize data structure\n", 2), 0);
-	parser(data.map);//parse le nom et le contenu de la map, copie la map dans data->map et exit dans le parser si erreur
+	parser(data.map);
 	fill_data(&data);
 	if (data.width > 1600 || data.height > 900)
 	{
@@ -39,13 +39,20 @@ int	init_structure(t_data *data, char **av)
 	if (!data->map)
 		return (0);
 	data->map->name = av[1];
-	data->tile_size = 64;//a ajuster avec les sprites
+	data->tile_size = 64;
 	data->mlx_ptr = 0;
 	data->win_ptr = 0;
 	data->width = 0;
 	data->height = 0;
+	data->img_wall = 0;
+	data->img_floor = 0;
+	data->img_player = 0;
+	data->img_collectible = 0;
+	data->img_exit = 0;
 	data->collected = 0;
 	data->moves = 0;
+	data->player_i = 0;
+	data->player_j = 0;
 	return (1);
 }
 
