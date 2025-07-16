@@ -3,6 +3,7 @@ SRCS = src/main.c\
 	src/exit.c\
 	src/game.c\
 	src/graphics.c\
+	src/miscellaneous.c\
 	src/parser_utils.c\
 	src/parser.c\
 	src/path_finding.c

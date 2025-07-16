@@ -6,7 +6,7 @@
 /*   By: llechert <llechert@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/10 09:40:01 by llechert          #+#    #+#             */
-/*   Updated: 2025/07/15 18:13:13 by llechert         ###   ########.fr       */
+/*   Updated: 2025/07/16 12:45:36 by llechert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,11 @@ int		init_images(t_data *data);
 /*main.c*/
 int		init_structure(t_data *data, char **av);
 void	fill_data(t_data *data);
+
+/*miscellaneous.c*/
+char	*skip_nl(int fd);
+int		end_nl(char *line);
+void	free_gnl_buffer(int fd);
 
 /*parser_utils.c*/
 int		check_map_characteristics(t_map *map);
